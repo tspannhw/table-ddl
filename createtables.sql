@@ -34,15 +34,14 @@ PARTITION BY HASH PARTITIONS 4
 STORED AS KUDU
 TBLPROPERTIES ('kudu.num_tablet_replicas' = '1')
 ;
-
 CREATE TABLE nano
 (
  uuid STRING,
- ipaddress STRING, 
+   systemtime STRING,
   top1pct DOUBLE,
   top1 STRING,
   `end` STRING, 
-  systemtime STRING, runtime STRING, cputemp DOUBLE, id STRING, 
+ runtime STRING, cputemp DOUBLE, id STRING, 
                             te STRING,  host STRING, macaddress STRING, diskusage STRING, memory DOUBLE,
  ipaddress STRING,  host_name STRING, filename STRING, 
   gputemp STRING, 
@@ -50,9 +49,8 @@ CREATE TABLE nano
   cputempf STRING,
   cpu DOUBLE,
   imageinput STRING, 
-PRIMARY KEY (uuid, endtime)
+PRIMARY KEY (uuid, systemtime)
 )
 PARTITION BY HASH PARTITIONS 4
 STORED AS KUDU
 TBLPROPERTIES ('kudu.num_tablet_replicas' = '1')
-;
