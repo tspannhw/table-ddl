@@ -20,11 +20,36 @@ CREATE TABLE envirosensors ( uuid STRING, systemtime STRING, runtime STRING, cpu
 
 CREATE TABLE bme680sensors ( uuid STRING, `end` STRING, systemtime STRING, runtime STRING, cpu DOUBLE, id STRING, te STRING, host STRING, macaddress STRING, diskusage STRING, memory DOUBLE, ipaddress STRING,  host_name STRING, lsm303d_magnetometer STRING, BH1745_red STRING, BH1745_blue STRING, lsm303d_accelerometer STRING, ltr559_prox STRING, ltr559_lux STRING, VL53L1X_distance_in_mm STRING, BH1745_clear STRING, BH1745_green STRING, bme680_tempc STRING, bme680_humidity STRING, bme680_tempf STRING, bme680_pressure STRING, starttime STRING, cputemp DOUBLE, imgnamep STRING, imgname STRING, PRIMARY KEY (uuid, `end`) ) PARTITION BY HASH PARTITIONS 4 STORED AS KUDU TBLPROPERTIES ('kudu.num_tablet_replicas' = '1');
 
-CREATE TABLE bme280sensors ( uuid STRING, `end` STRING, systemtime STRING, runtime STRING, cpu DOUBLE, id STRING,  te STRING,  host STRING, macaddress STRING, diskusage STRING, memory DOUBLE, ipaddress STRING,  host_name STRING, bme280_altitude STRING, bme280_tempf STRING, max30105timestamp STRING,  max30105_detected STRING, max30105_delta STRING, max30105_temp STRING, bme280_tempc STRING, max30105_mean STRING, max30105_value STRING, bme280_altitude_feet STRING, bme280_pressure STRING,  starttime STRING, cputemp DOUBLE, imgnamep STRING, imgname STRING, PRIMARY KEY (uuid, `end`) ) PARTITION BY HASH PARTITIONS 4 STORED AS KUDU TBLPROPERTIES ('kudu.num_tablet_replicas' = '1');
+CREATE TABLE bme280sensors ( uuid STRING, `end` STRING, systemtime STRING, runtime STRING, cpu DOUBLE, id STRING, 
+                            te STRING,  host STRING, macaddress STRING, diskusage STRING, memory DOUBLE,
+ ipaddress STRING,  host_name STRING, bme280_altitude STRING, bme280_tempf STRING, max30105timestamp STRING, 
+ max30105_detected STRING, max30105_delta STRING, max30105_temp STRING, bme280_tempc STRING, max30105_mean STRING, max30105_value STRING, bme280_altitude_feet STRING, bme280_pressure STRING,  starttime STRING, cputemp DOUBLE, imgnamep STRING, imgname STRING, PRIMARY KEY (uuid, `end`) ) PARTITION BY HASH PARTITIONS 4 STORED AS KUDU TBLPROPERTIES ('kudu.num_tablet_replicas' = '1');
 
 CREATE TABLE movidius ( uuid STRING,  endtime STRING, systemtime STRING, runtime STRING, cputemp STRING, id STRING, te STRING, 
 host STRING,starttime STRING,image_filename STRING, 
 macaddress STRING, diskfree STRING, memory STRING, ipaddress STRING, host_name STRING,
+PRIMARY KEY (uuid, endtime)
+)
+PARTITION BY HASH PARTITIONS 4
+STORED AS KUDU
+TBLPROPERTIES ('kudu.num_tablet_replicas' = '1')
+;
+
+CREATE TABLE nano
+(
+ uuid STRING,
+ ipaddress STRING, 
+  top1pct DOUBLE,
+  top1 STRING,
+  `end` STRING, 
+  systemtime STRING, runtime STRING, cputemp DOUBLE, id STRING, 
+                            te STRING,  host STRING, macaddress STRING, diskusage STRING, memory DOUBLE,
+ ipaddress STRING,  host_name STRING, filename STRING, 
+  gputemp STRING, 
+  gputempf STRING,
+  cputempf STRING,
+  cpu DOUBLE,
+  imageinput STRING, 
 PRIMARY KEY (uuid, endtime)
 )
 PARTITION BY HASH PARTITIONS 4
